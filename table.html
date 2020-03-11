@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hotdog - Express</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Hotdog Express</h1>
+      <h3>Taste some of the best hotdogs ever!</h3>
+      <hr>
+      <a href="/reservation"><button class="btn btn-danger btn-lg"><span class="fa fa-plus"></span>Make a reservation!</button></a>
+      <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-home"></span></button></a>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3><strong>Reservation</strong></h3>
+          </div>
+          <div class="card-body">
+            <div id="reserve">
+                <h1 id="charName"></h1>
+            </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3><strong>Waitlist</strong></h3>
+          </div>
+          <div class="card-body">
+            <div id="wait">
+                <h1 id="charName"></h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  var count = 0;
+
+
+      $.get("/api/waitlist/", (data) => {
+          let i = 0;
+          for(i=0; i<data.length; i++) {
+              if(i<5) {
+                $("#reserve").append("<p>" + "Name: " + data[i].name + "</p>");
+                $("#reserve").append("<p>" + "Number: " + data[i].number + "</p>");
+                $("#reserve").append("<p>" + "Email: " + data[i].email + "</p>");
+                $("#reserve").append("<p>" + "ID: " + data[i].uniqueID + "</p>");
+              } else {
+                $("#wait").append("<p>" + "Name :" + data[i].name + "</p>");
+                $("#wait").append("<p>" + "Number: " + data[i].number + "</p>");
+                $("#wait").append("<p>" + "Email: " + data[i].email + "</p>");
+                $("#wait").append("<p>" + "ID: " + data[i].uniqueID + "</p>");
+              }
+          }
+          console.log(data);
+      });
+  </script>
+
+</body>
+
+</html>
